@@ -3,38 +3,33 @@ package com.joysistvi.recordingapp.service;
 import java.util.List;
 
 import com.joysistvi.recordingapp.model.Song;
-import com.joysistvi.recordingapp.repository.SongRepo;
 
-// Service Class
-// Handles the business logic related to Song objects
-public class SongService {
-
-    // Dependency Injection (Constructor Injection)
-    private final SongRepo songRepo;
-
-    public SongService(SongRepo songRepo) {
-        this.songRepo = songRepo;
-    }
+// Service Interface
+// Defines the business operations available for Song objects
+public interface SongService {
 
     // Retrieve all active songs
-    public List<Song> listSongs() {
-        return songRepo.getAllSongs();
-    }
+    List<Song> getAllSongs();
 
-    // Validate the song information before saving it
-    public boolean createSong(Song song) {
+    // Retrieve all archived songs
+    List<Song> getArchivedSongs();
 
-        if (song == null) {
-            System.out.println("Song object cannot be null.");
-            return false;
-        }
+    // Search songs by title
+    List<Song> searchSongs(String keyword);
 
-        if (song.getTitle() == null || song.getTitle().trim().isEmpty()) {
-            System.out.println("Song title cannot be empty.");
-            return false;
-        }
+    // Validate and create a new song
+    boolean createSong(Song song);
 
-        return songRepo.createSong(song);
-    }
+    // Validate and update an existing song
+    boolean updateSong(Song song);
+
+    // Delete a song permanently
+    boolean deleteSong(int id);
+
+    // Archive (soft delete) a song
+    boolean archiveSong(int id);
+
+    // Restore an archived song
+    boolean restoreSong(int id);
 
 }
