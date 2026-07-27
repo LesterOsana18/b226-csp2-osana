@@ -15,17 +15,17 @@ public interface AlbumService {
     // // Retrieve all archived albums
     // List<Album> getArchivedAlbums();
 
-    // // Search albums by title
-    // List<Album> searchAlbums(String keyword);
+    // Search albums by title
+    List<Album> searchAlbums(String keyword);
 
-    // // Validate and create a new album
-    // boolean createAlbum(Album album);
+    // Validate and create a new album
+    boolean createAlbum(Album album);
 
-    // // Validate and update an existing album
-    // boolean updateAlbum(Album album);
+    // Validate and update an existing album
+    boolean updateAlbum(Album album);
 
-    // // Delete an album permanently
-    // boolean deleteAlbum(int id);
+    // Delete an album permanently
+    boolean deleteAlbum(int id);
 
     // // Archive (soft delete) an album
     // boolean archiveAlbum(int id);
