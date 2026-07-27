@@ -1,6 +1,7 @@
 package com.joysistvi.recordingapp.view;
 
 import java.util.Scanner;
+import java.util.List;
 
 import com.joysistvi.recordingapp.controller.SongController;
 import com.joysistvi.recordingapp.model.Song;
@@ -52,7 +53,7 @@ public class SongView {
                     System.out.println("\n=== Add Song ===");
                     addSong();
                     
-                    System.out.print("\nPress Enter to continue...");
+                    System.out.print("Press Enter to continue...");
                     input.nextLine();
 
                     break;
@@ -63,7 +64,7 @@ public class SongView {
                     System.out.println("\n=== View All Songs ===");
                     displaySongs();
 
-                    System.out.print("\nPress Enter to continue...");
+                    System.out.print("Press Enter to continue...");
                     input.nextLine();
 
                     break;
@@ -71,29 +72,45 @@ public class SongView {
                 case 3:
 
                     // Update an existing song (CRUD - Update)
-                    // TODO: Implement the update functionality
                     System.out.println("\n=== Update Song ===");
+                    updateSong();
+
+                    System.out.print("Press Enter to continue...");
+                    input.nextLine();
+
                     break;
 
                 case 4:
 
                     // Delete a song (CRUD - Delete)
-                    // TODO: Implement the delete functionality
                     System.out.println("\n=== Delete Song ===");
+                    deleteSong();
+
+                    System.out.print("Press Enter to continue...");
+                    input.nextLine();
+
                     break;
 
                 case 5:
 
                     // Archive a song (CRUD - Archive)
-                    // TODO: Implement the archive functionality
                     System.out.println("\n=== Archive Song ===");
+                    archiveSong();
+
+                    System.out.print("Press Enter to continue...");
+                    input.nextLine();
+
                     break;
 
                 case 6:
 
                     // Restore a song (CRUD - Restore)
-                    // TODO: Implement the restore functionality
                     System.out.println("\n=== Restore Song ===");
+                    restoreSong();
+
+                    System.out.print("Press Enter to continue...");
+                    input.nextLine();
+
                     break;
 
                 case 7:
@@ -133,25 +150,120 @@ public class SongView {
 
         // Call the controller to create the song and display the result
         if (songController.createSong(song)) {
-            System.out.println("\n" + song.getTitle() + " has been added successfully!");
+            System.out.println("\n" + song.getTitle() + " has been added successfully!\n");
         } else {
-            System.out.println("Failed to add song.");
+            System.out.println("\nFailed to add song.\n");
         }
     }
 
     // Display all active songs retrieved from the database
     public void displaySongs() {
 
-        for (Song song : songController.listSongs()) {
+        List<Song> songs = songController.listSongs();
 
-            System.out.println(
-                    song.getId()
-                    + " | "
-                    + song.getTitle()
-            );
+        if (songs.isEmpty()) {
+            System.out.println("\nNo songs found.\n");
+            return;
+        }
+
+        String border =
+                "+------+------------------------------+----------+----------------+----------+";
+
+        System.out.println(border);
+
+        System.out.printf("| %-4s | %-28s | %-8s | %-14s | %-8s |%n",
+                "ID", "Title", "Length", "Genre", "Album");
+
+        System.out.println(border);
+
+        for (Song song : songs) {
+
+            System.out.printf("| %-4d | %-28s | %-8s | %-14s | %-8d |%n",
+                    song.getId(),
+                    song.getTitle(),
+                    song.getSongLength(),
+                    song.getGenre(),
+                    song.getAlbumId());
 
         }
 
+        System.out.println(border);
+
     }
 
+    // Update an existing song in the database
+    public void updateSong() {
+        System.out.print("Song ID: ");
+        int id = input.nextInt();
+        input.nextLine();
+
+        System.out.print("New Title: ");
+        String title = input.nextLine();
+
+        System.out.print("New Song Length (HH:MM:SS): ");
+        String songLength = input.nextLine();
+
+        System.out.print("New Genre: ");
+        String genre = input.nextLine();
+
+        System.out.print("New Album ID: ");
+        int albumId = input.nextInt();
+        input.nextLine();
+
+        Song song = new Song(id, title, songLength, genre, albumId);
+
+        if (songController.updateSong(song)) {
+            System.out.println("\n" + song.getTitle() + " has been updated successfully!\n");
+        } else {
+            System.out.println("\nFailed to update song.\n");
+        }
+    }
+
+    // Delete a song from the database permanently (not recommended, use archive instead)
+    public void deleteSong() {
+        System.out.print("Song ID: ");
+        int id = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Are you sure you want to proceed with the deletion?");
+        System.out.println("WARNING: This action cannot be undone and will permanently remove the song from the database.");
+        System.out.print("Press 'Y' to confirm or any other key to cancel: ");
+        String confirmation = input.nextLine();
+
+        if (confirmation.equalsIgnoreCase("Y")) {
+            if (songController.deleteSong(id)) {
+                System.out.println("\nSong deleted successfully!\n");
+            } else {
+                System.out.println("\nFailed to delete song.\n");
+            }
+        } else {
+            System.out.println("\nDeletion cancelled.\n");
+        }
+    }
+
+    // Archive a song by marking it as archived in the database
+    public void archiveSong() {
+        System.out.print("Song ID: ");
+        int id = input.nextInt();
+        input.nextLine();
+
+        if (songController.archiveSong(id)) {
+            System.out.println("\nSong archived successfully!\n");
+        } else {
+            System.out.println("\nFailed to archive song.\n");
+        }
+    }
+
+    // Restore a song by marking it as active in the database
+    public void restoreSong() {
+        System.out.print("Song ID: ");
+        int id = input.nextInt();
+        input.nextLine();
+
+        if (songController.restoreSong(id)) {
+            System.out.println("\nSong restored successfully!\n");
+        } else {
+            System.out.println("\nFailed to restore song.\n");
+        }
+    }
 }
