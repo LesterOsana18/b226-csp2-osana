@@ -45,9 +45,7 @@ public class SongView {
             System.out.println("7. Back");
 
             System.out.print("\nEnter your choice: ");
-
-            int choice = input.nextInt();
-            input.nextLine(); // Consume newline
+            int choice = readMenuChoice();
 
             switch (choice) {
 
@@ -343,5 +341,22 @@ public class SongView {
 
         }
 
+    }
+
+    // Read and validate a menu option
+    private int readMenuChoice() {
+
+        while (!input.hasNextInt()) {
+            
+            System.out.println("\nError: Please enter a valid menu number.\n");
+            input.nextLine();
+
+            System.out.print("Enter your choice: ");
+        }
+
+        int choice = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        return choice;
     }
 }
