@@ -13,21 +13,23 @@ public class SongView {
     private final SongController songController;
 
     // Scanner object for user input
-    private final Scanner input = new Scanner(System.in);
+    private final Scanner input;
 
-    public SongView(SongController songController) {
+    // Constructor Injection
+    public SongView(SongController songController, Scanner scanner) {
         this.songController = songController;
+        this.input = scanner;
     }
 
-    // Display the dashboard menu
-    public void dashboard() {
+    // Display the Song Management dashboard
+    public void run() {
 
         boolean running = true;
 
         while (running) {
 
             System.out.println("\n==============================");
-            System.out.println("     RECORDING APPLICATION");
+            System.out.println("      SONG MANAGEMENT");
             System.out.println("==============================");
             System.out.println("1. Add Song");
             System.out.println("2. View All Songs");
@@ -35,50 +37,54 @@ public class SongView {
             System.out.println("4. Delete Song");
             System.out.println("5. Archive Song");
             System.out.println("6. Restore Song");
-            System.out.println("7. Exit");
+            System.out.println("7. Back");
 
             System.out.print("\nEnter your choice: ");
 
             int choice = input.nextInt();
-            input.nextLine();
+            input.nextLine(); // Consume newline
 
             switch (choice) {
 
                 case 1:
 
-                    System.out.println("Add Song");
+                    System.out.println("\n=== Add Song ===");
                     break;
 
                 case 2:
 
+                    System.out.println("\n=== View All Songs ===");
                     displaySongs();
+
+                    System.out.print("\nPress Enter to continue...");
+                    input.nextLine();
 
                     break;
 
                 case 3:
 
-                    System.out.println("Update Song");
+                    System.out.println("\n=== Update Song ===");
                     break;
 
                 case 4:
 
-                    System.out.println("Delete Song");
+                    System.out.println("\n=== Delete Song ===");
                     break;
 
                 case 5:
 
-                    System.out.println("Archive Song");
+                    System.out.println("\n=== Archive Song ===");
                     break;
 
                 case 6:
 
-                    System.out.println("Restore Song");
+                    System.out.println("\n=== Restore Song ===");
                     break;
 
                 case 7:
 
                     running = false;
-                    System.out.println("\nThank you for using the Recording Application!");
+                    System.out.println("\nReturning to the Main Menu...");
                     break;
 
                 default:
@@ -89,11 +95,9 @@ public class SongView {
 
         }
 
-        input.close();
-
     }
 
-    // Display all songs retrieved from the database
+    // Display all active songs retrieved from the database
     public void displaySongs() {
 
         for (Song song : songController.listSongs()) {
