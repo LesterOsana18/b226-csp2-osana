@@ -1,16 +1,23 @@
 package com.joysistvi.recordingapp;
 
 import com.joysistvi.recordingapp.config.DbConnection;
+
 import com.joysistvi.recordingapp.controller.AlbumController;
 import com.joysistvi.recordingapp.controller.SongController;
+
 import com.joysistvi.recordingapp.repository.AlbumRepository;
 import com.joysistvi.recordingapp.repository.AlbumRepositoryImpl;
+
 import com.joysistvi.recordingapp.repository.SongRepository;
 import com.joysistvi.recordingapp.repository.SongRepositoryImpl;
+
 import com.joysistvi.recordingapp.service.AlbumService;
 import com.joysistvi.recordingapp.service.AlbumServiceImpl;
+
 import com.joysistvi.recordingapp.service.SongService;
 import com.joysistvi.recordingapp.service.SongServiceImpl;
+
+import com.joysistvi.recordingapp.view.AlbumView;
 import com.joysistvi.recordingapp.view.SongView;
 
 import java.util.Scanner;
@@ -36,8 +43,13 @@ public class App {
         SongRepository songRepository = new SongRepositoryImpl(dbConnection);
         SongService songService = new SongServiceImpl(songRepository);
         SongController songController = new SongController(songService);
+        
+        // Instantiate the views with their dependencies
         SongView songView =
                 new SongView(songController, albumController, scanner);
+
+        AlbumView albumView =
+                new AlbumView(albumController, scanner);
 
         // ======================================================
         // Future Modules
@@ -56,8 +68,7 @@ public class App {
 
                 case 1 -> songView.run();
 
-                case 2 ->
-                        System.out.println("Album Management is not implemented yet.");
+                case 2 -> albumView.run();
 
                 case 3 ->
                         System.out.println("Artist Management is not implemented yet.");
