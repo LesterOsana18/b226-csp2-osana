@@ -27,25 +27,25 @@ public class AlbumController {
     //     return albumService.getArchivedAlbums();
     // }
 
-    // // Search albums by title
-    // public List<Album> searchAlbum(String keyword) {
-    //     return albumService.searchAlbums(keyword);
-    // }
+    // Search albums by title
+    public List<Album> searchAlbum(String keyword) {
+        return albumService.searchAlbums(keyword);
+    }
 
-    // // Create a new album
-    // public boolean createAlbum(Album album) {
-    //     return albumService.createAlbum(album);
-    // }
+    // Create a new album
+    public boolean createAlbum(Album album) {
+        return albumService.createAlbum(album);
+    }
 
-    // // Update an existing album
-    // public boolean updateAlbum(Album album) {
-    //     return albumService.updateAlbum(album);
-    // }
+    // Update an existing album
+    public boolean updateAlbum(Album album) {
+        return albumService.updateAlbum(album);
+    }
 
-    // // Permanently delete an album
-    // public boolean deleteAlbum(int id) {
-    //     return albumService.deleteAlbum(id);
-    // }
+    // Permanently delete an album
+    public boolean deleteAlbum(int id) {
+        return albumService.deleteAlbum(id);
+    }
 
     // // Archive an album
     // public boolean archiveAlbum(int id) {
