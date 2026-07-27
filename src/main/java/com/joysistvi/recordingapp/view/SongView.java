@@ -16,6 +16,10 @@ public class SongView {
     // Scanner object for user input
     private final Scanner input;
 
+    // Table border used when displaying songs
+    private static final String TABLE_BORDER =
+                "+------+------------------------------+----------+----------------+----------+";
+
     // Constructor Injection
     public SongView(SongController songController, Scanner scanner) {
         this.songController = songController;
@@ -129,35 +133,26 @@ public class SongView {
 
     }
 
-    // Add a new song by prompting the user for details
-    public void addSong() {
-        // Prompt the user for song details
-        System.out.print("Title: ");
-        String title = input.nextLine();
+    // Add a new song to the database
+    private void addSong() {
 
-        System.out.print("Song Length (HH:MM:SS): ");
-        String songLength = input.nextLine();
+        String title = readSongTitle();
+        String songLength = readSongLength();
+        String genre = readGenre();
+        int albumId = readAlbumId();
 
-        System.out.print("Genre: ");
-        String genre = input.nextLine();
-
-        System.out.print("Album ID: ");
-        int albumId = input.nextInt();
-        input.nextLine(); // Consume newline
-
-        // Create a new Song object with the provided details
         Song song = new Song(title, songLength, genre, albumId);
 
-        // Call the controller to create the song and display the result
         if (songController.createSong(song)) {
             System.out.println("\n" + song.getTitle() + " has been added successfully!\n");
         } else {
             System.out.println("\nFailed to add song.\n");
         }
+
     }
 
     // Display all active songs retrieved from the database
-    public void displaySongs() {
+    private void displaySongs() {
 
         List<Song> songs = songController.listSongs();
 
@@ -166,15 +161,12 @@ public class SongView {
             return;
         }
 
-        String border =
-                "+------+------------------------------+----------+----------------+----------+";
-
-        System.out.println(border);
+        System.out.println(TABLE_BORDER);
 
         System.out.printf("| %-4s | %-28s | %-8s | %-14s | %-8s |%n",
                 "ID", "Title", "Length", "Genre", "Album");
 
-        System.out.println(border);
+        System.out.println(TABLE_BORDER);
 
         for (Song song : songs) {
 
@@ -187,28 +179,26 @@ public class SongView {
 
         }
 
-        System.out.println(border);
+        System.out.println(TABLE_BORDER);
+
+        System.out.printf("| %-63s | %-8d |%n",
+                "Total Songs",
+                songs.size());
+
+        System.out.println(TABLE_BORDER);
 
     }
 
     // Update an existing song in the database
-    public void updateSong() {
+    private void updateSong() {
         System.out.print("Song ID: ");
         int id = input.nextInt();
         input.nextLine();
 
-        System.out.print("New Title: ");
-        String title = input.nextLine();
-
-        System.out.print("New Song Length (HH:MM:SS): ");
-        String songLength = input.nextLine();
-
-        System.out.print("New Genre: ");
-        String genre = input.nextLine();
-
-        System.out.print("New Album ID: ");
-        int albumId = input.nextInt();
-        input.nextLine();
+        String title = readSongTitle();
+        String songLength = readSongLength();
+        String genre = readGenre();
+        int albumId = readAlbumId();
 
         Song song = new Song(id, title, songLength, genre, albumId);
 
@@ -219,8 +209,8 @@ public class SongView {
         }
     }
 
-    // Delete a song from the database permanently (not recommended, use archive instead)
-    public void deleteSong() {
+    // Delete a song from the database permanently
+    private void deleteSong() {
         System.out.print("Song ID: ");
         int id = input.nextInt();
         input.nextLine();
@@ -241,8 +231,8 @@ public class SongView {
         }
     }
 
-    // Archive a song by marking it as archived in the database
-    public void archiveSong() {
+    // Archive a song by marking it as inactive in the database
+    private void archiveSong() {
         System.out.print("Song ID: ");
         int id = input.nextInt();
         input.nextLine();
@@ -255,7 +245,7 @@ public class SongView {
     }
 
     // Restore a song by marking it as active in the database
-    public void restoreSong() {
+    private void restoreSong() {
         System.out.print("Song ID: ");
         int id = input.nextInt();
         input.nextLine();
@@ -265,5 +255,93 @@ public class SongView {
         } else {
             System.out.println("\nFailed to restore song.\n");
         }
+    }
+
+    // Read and validate the song title
+    private String readSongTitle() {
+
+        String title;
+
+        do {
+
+            System.out.print("Title: ");
+            title = input.nextLine().trim();
+
+            if (title.isEmpty()) {
+                System.out.println("\nError: Song title cannot be empty.\n");
+            }
+
+        } while (title.isEmpty());
+
+        return title;
+
+    }
+
+    // Read and validate the song length
+    private String readSongLength() {
+
+        String songLength;
+
+        do {
+
+            System.out.print("Song Length (HH:MM:SS): ");
+            songLength = input.nextLine().trim();
+
+            if (!songLength.matches("\\d{2}:\\d{2}:\\d{2}")) {
+                System.out.println("\nError: Song length must follow the format HH:MM:SS.\n");
+            }
+
+        } while (!songLength.matches("\\d{2}:\\d{2}:\\d{2}"));
+
+        return songLength;
+
+    }
+
+    // Read and validate the genre
+    private String readGenre() {
+
+        String genre;
+
+        do {
+
+            System.out.print("Genre: ");
+            genre = input.nextLine().trim();
+
+            if (genre.isEmpty()) {
+                System.out.println("\nError: Genre cannot be empty.\n");
+            }
+
+        } while (genre.isEmpty());
+
+        return genre;
+
+    }
+
+    // Read and validate the album ID
+    private int readAlbumId() {
+
+        int albumId;
+
+        while (true) {
+
+            System.out.print("Album ID: ");
+
+            while (!input.hasNextInt()) {
+                System.out.println("\nError: Album ID must be a number.\n");
+                input.next();
+                System.out.print("Album ID: ");
+            }
+
+            albumId = input.nextInt();
+            input.nextLine();
+
+            if (albumId > 0) {
+                return albumId;
+            }
+
+            System.out.println("\nError: Album ID must be greater than zero.\n");
+
+        }
+
     }
 }
