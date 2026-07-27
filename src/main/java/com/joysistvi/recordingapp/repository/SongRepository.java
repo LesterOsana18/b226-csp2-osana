@@ -44,4 +44,6 @@ public interface SongRepository {
     // Restore an archived song
     boolean restoreSong(int id);
 
+    // Check if an album exists
+    boolean albumExists(int albumId);
 }

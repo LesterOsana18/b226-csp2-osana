@@ -144,7 +144,7 @@ public class SongView {
         if (songController.createSong(song)) {
             System.out.println("\n" + song.getTitle() + " has been added successfully!\n");
         } else {
-            System.out.println("\nFailed to add song.\n");
+            System.out.println("Failed to add song.\n");
         }
 
     }

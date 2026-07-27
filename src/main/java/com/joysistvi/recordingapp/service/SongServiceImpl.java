@@ -49,6 +49,11 @@ public class SongServiceImpl implements SongService {
             return false;
         }
 
+        if (!songRepository.albumExists(song.getAlbumId())) {
+            System.out.println("\nAlbum ID does not exist.");
+            return false;
+        }
+
         return songRepository.createSong(song);
 
     }
@@ -63,6 +68,11 @@ public class SongServiceImpl implements SongService {
         }
 
         if (!isValidSong(song)) {
+            return false;
+        }
+
+        if (!songRepository.albumExists(song.getAlbumId())) {
+            System.out.println("\nAlbum ID does not exist.");
             return false;
         }
 

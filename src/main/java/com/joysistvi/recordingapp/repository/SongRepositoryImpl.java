@@ -324,4 +324,31 @@ public class SongRepositoryImpl implements SongRepository {
 
     }
 
+    // Check if an album exists
+    @Override
+    public boolean albumExists(int albumId) {
+        String query = "SELECT COUNT(*) FROM albums WHERE id = ?";
+
+        try (
+                Connection connection = dbConnection.connect();
+                PreparedStatement preparedStatement =
+                        connection.prepareStatement(query)
+        ) {
+
+            preparedStatement.setInt(1, albumId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Error checking album: " + e.getMessage());
+
+        }
+
+        return false;
+    }
 }
