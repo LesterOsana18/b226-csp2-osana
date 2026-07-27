@@ -77,7 +77,7 @@ public class SongView {
                 case 2:
 
                     // View all songs (CRUD - Read)
-                    System.out.println("\n=== View All Songs ===");
+                    System.out.println("\n=== View Songs ===");
                     displaySongs();
 
                     System.out.print("Press Enter to continue...");
