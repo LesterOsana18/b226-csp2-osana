@@ -9,7 +9,7 @@ public class Album {
 	private String albumName;
 	private int yearReleased;
 	private int artistId;
-	private String artistName;
+	private String artistName; // Artist name retrieved from the joined artists table
 	private String createdAt;
 	
 	// Default constructor
