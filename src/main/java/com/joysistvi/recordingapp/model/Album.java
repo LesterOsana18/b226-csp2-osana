@@ -9,6 +9,7 @@ public class Album {
 	private String albumName;
 	private int yearReleased;
 	private int artistId;
+	private String artistName;
 	private String createdAt;
 	
 	// Default constructor
@@ -17,20 +18,18 @@ public class Album {
 	}
 	
 	// Constructor for existing records (includes ID)
-	public Album(int id, String albumName, int yearReleased, int artistId, String createdAt) {
+	public Album(int id, String albumName, int yearReleased, int artistId) {
 		this.id = id;
 		this.albumName = albumName;
 		this.yearReleased = yearReleased;
 		this.artistId = artistId;
-		this.createdAt = createdAt;
 	}
 	
 	// Constructor for creating a new album
-	public Album(String albumName, int yearReleased, int artistId, String createdAt) {
+	public Album(String albumName, int yearReleased, int artistId) {
 		this.albumName = albumName;
 		this.yearReleased = yearReleased;
 		this.artistId = artistId;
-		this.createdAt = createdAt;
 	}
 	
 	// Getter (Accessor) and Setter (Mutator) Methods
@@ -65,6 +64,14 @@ public class Album {
 
 	public void setArtistId(int artistId) {
 		this.artistId = artistId;
+	}
+
+	public String getArtistName() {
+		return artistName;
+	}
+
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
 	}
 
 	public String getCreatedAt() {
