@@ -16,23 +16,23 @@ public interface AlbumRepository {
     // // Retrieve all archived albums from the database
     // List<Album> getArchivedAlbums();
 
-    // // Search albums by title
-    // List<Album> searchAlbums(String keyword);
+    // Search albums by title
+    List<Album> searchAlbums(String keyword);
 
-    // // --- Create Operation ---
+    // --- Create Operation ---
 
-    // // Insert a new album into the database
-    // boolean createAlbum(Album album);
+    // Insert a new album into the database
+    boolean createAlbum(Album album);
 
-    // // --- Update Operation ---
+    // --- Update Operation ---
 
-    // // Update an existing album
-    // boolean updateAlbum(Album album);
+    // Update an existing album
+    boolean updateAlbum(Album album);
 
-    // // --- Delete Operation ---
+    // --- Delete Operation ---
 
-    // // Permanently delete an album from the database
-    // boolean deleteAlbum(int id);
+    // Permanently delete an album from the database
+    boolean deleteAlbum(int id);
 
     // // Archive Operation (Soft Delete)
 
@@ -42,6 +42,6 @@ public interface AlbumRepository {
     // // Restore Operation
     // boolean restoreAlbum(int id);
 
-    // // Check if an album exists
-    // boolean albumExists(int albumId);
+    // Check if an album exists
+    boolean albumExists(int albumId);
 }
