@@ -1,9 +1,14 @@
 package com.joysistvi.recordingapp;
 
 import com.joysistvi.recordingapp.config.DbConnection;
+import com.joysistvi.recordingapp.controller.AlbumController;
 import com.joysistvi.recordingapp.controller.SongController;
+import com.joysistvi.recordingapp.repository.AlbumRepository;
+import com.joysistvi.recordingapp.repository.AlbumRepositoryImpl;
 import com.joysistvi.recordingapp.repository.SongRepository;
 import com.joysistvi.recordingapp.repository.SongRepositoryImpl;
+import com.joysistvi.recordingapp.service.AlbumService;
+import com.joysistvi.recordingapp.service.AlbumServiceImpl;
 import com.joysistvi.recordingapp.service.SongService;
 import com.joysistvi.recordingapp.service.SongServiceImpl;
 import com.joysistvi.recordingapp.view.SongView;
@@ -24,10 +29,15 @@ public class App {
         // Instantiate and connect the Song module components
         // ======================================================
 
+        AlbumRepository albumRepository = new AlbumRepositoryImpl(dbConnection);
+        AlbumService albumService = new AlbumServiceImpl(albumRepository);
+        AlbumController albumController = new AlbumController(albumService);
+
         SongRepository songRepository = new SongRepositoryImpl(dbConnection);
         SongService songService = new SongServiceImpl(songRepository);
         SongController songController = new SongController(songService);
-        SongView songView = new SongView(songController, scanner);
+        SongView songView =
+                new SongView(songController, albumController, scanner);
 
         // ======================================================
         // Future Modules
