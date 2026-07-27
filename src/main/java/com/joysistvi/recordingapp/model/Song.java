@@ -7,7 +7,7 @@ public class Song {
 	// Private fields (Encapsulation)
     private int id;
     private String title;
-    private String length;
+    private String songLength;
     private String genre;
     private int albumId;
     private int isArchived;
@@ -17,18 +17,18 @@ public class Song {
     }
 
     // Constructor for existing records (includes ID)
-    public Song(int id, String title, String length, String genre, int albumId) {
+    public Song(int id, String title, String songLength, String genre, int albumId) {
         this.id = id;
         this.title = title;
-        this.length = length;
+        this.songLength = songLength;
         this.genre = genre;
         this.albumId = albumId;
     }
 
     // Constructor for creating a new song
-    public Song(String title, String length, String genre, int albumId) {
+    public Song(String title, String songLength, String genre, int albumId) {
         this.title = title;
-        this.length = length;
+        this.songLength = songLength;
         this.genre = genre;
         this.albumId = albumId;
     }
@@ -51,12 +51,12 @@ public class Song {
         this.title = title;
     }
 
-    public String getLength() {
-        return length;
+    public String getSongLength() {
+        return songLength;
     }
 
-    public void setLength(String length) {
-        this.length = length;
+    public void setSongLength(String songLength) {
+        this.songLength = songLength;
     }
 
     public String getGenre() {
