@@ -41,7 +41,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                 + "FROM albums "
                 + "JOIN artists "
                 + "ON albums.artist_id = artists.id "
-                + "ORDER BY artists.artist_name, albums.album_name";
+                + "ORDER BY artists.id";
 
         try (
                 Connection connection = dbConnection.connect();
