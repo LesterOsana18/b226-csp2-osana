@@ -260,6 +260,23 @@ public class SongView {
         }
     }
 
+    // Read and validate a menu option
+    private int readMenuChoice() {
+
+        while (!input.hasNextInt()) {
+            
+            System.out.println("\nError: Please enter a valid menu number.\n");
+            input.nextLine();
+
+            System.out.print("Enter your choice: ");
+        }
+
+        int choice = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        return choice;
+    }
+
     // Read and validate the song ID
     private int readSongId() {
         int songId;
@@ -374,23 +391,6 @@ public class SongView {
 
         }
 
-    }
-
-    // Read and validate a menu option
-    private int readMenuChoice() {
-
-        while (!input.hasNextInt()) {
-            
-            System.out.println("\nError: Please enter a valid menu number.\n");
-            input.nextLine();
-
-            System.out.print("Enter your choice: ");
-        }
-
-        int choice = input.nextInt();
-        input.nextLine(); // Consume newline
-
-        return choice;
     }
 
     // Display all available albums for selection
