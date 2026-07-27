@@ -1,0 +1,25 @@
+# Maven build output
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Java compiled files
+*.class
+
+# Logs
+*.log
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# IntelliJ (optional, safe to include)
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
