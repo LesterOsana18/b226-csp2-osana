@@ -11,6 +11,8 @@ public class Song {
     private String genre;
     private int albumId;
     private int isArchived;
+    private String createdAt;
+    private String updatedAt;
 
     // Default constructor
     public Song() {
@@ -81,5 +83,21 @@ public class Song {
 
     public void setIsArchived(int isArchived) {
         this.isArchived = isArchived;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
