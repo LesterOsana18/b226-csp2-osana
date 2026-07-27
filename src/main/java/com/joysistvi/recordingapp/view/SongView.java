@@ -47,11 +47,11 @@ public class SongView {
 
         while (running) {
 
-            System.out.println("\n==============================");
-            System.out.println("      SONG MANAGEMENT");
-            System.out.println("==============================");
+            System.out.println("\n===============================");
+            System.out.println("        SONG MANAGEMENT        ");
+            System.out.println("===============================");
             System.out.println("1. Add Song");
-            System.out.println("2. View All Songs");
+            System.out.println("2. View Songs");
             System.out.println("3. Update Song");
             System.out.println("4. Delete Song");
             System.out.println("5. Archive Song");
@@ -147,11 +147,8 @@ public class SongView {
                 default:
 
                     System.out.println("\nInvalid menu option.");
-
             }
-
         }
-
     }
 
     // Add a new song to the database
