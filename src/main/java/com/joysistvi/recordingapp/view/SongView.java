@@ -1,9 +1,12 @@
 package com.joysistvi.recordingapp.view;
 
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
+// Importing necessary classes from the controller and model packages
+import com.joysistvi.recordingapp.controller.AlbumController;
 import com.joysistvi.recordingapp.controller.SongController;
+import com.joysistvi.recordingapp.model.Album;
 import com.joysistvi.recordingapp.model.Song;
 
 // View Class
@@ -12,6 +15,7 @@ public class SongView {
 
     // Dependency Injection (Constructor Injection)
     private final SongController songController;
+    private final AlbumController albumController;
 
     // Scanner object for user input
     private final Scanner input;
@@ -21,9 +25,15 @@ public class SongView {
                 "+------+------------------------------+----------+----------------+----------+";
 
     // Constructor Injection
-    public SongView(SongController songController, Scanner scanner) {
+    public SongView(
+            SongController songController,
+            AlbumController albumController,
+            Scanner scanner) {
+
         this.songController = songController;
+        this.albumController = albumController;
         this.input = scanner;
+
     }
 
     // Display the Song Management dashboard
@@ -137,6 +147,9 @@ public class SongView {
         String title = readSongTitle();
         String songLength = readSongLength();
         String genre = readGenre();
+
+        // Display available albums for selection
+        displayAlbums(); 
         int albumId = readAlbumId();
 
         Song song = new Song(title, songLength, genre, albumId);
@@ -358,5 +371,42 @@ public class SongView {
         input.nextLine(); // Consume newline
 
         return choice;
+    }
+
+    // Display all available albums for selection
+    private void displayAlbums() {
+
+        List<Album> albums = albumController.listAlbums();
+
+        if (albums.isEmpty()) {
+            System.out.println("\nNo albums found.\n");
+            return;
+        }
+
+        String border =
+                "+------+------------------------------+------------------------------+";
+
+        System.out.println("\nAvailable Albums");
+
+        System.out.println(border);
+
+        System.out.printf("| %-4s | %-28s | %-28s |%n",
+                "ID",
+                "Album",
+                "Artist");
+
+        System.out.println(border);
+
+        for (Album album : albums) {
+
+            System.out.printf("| %-4d | %-28s | %-28s |%n",
+                    album.getId(),
+                    album.getAlbumName(),
+                    album.getArtistName());
+
+        }
+
+        System.out.println(border);
+
     }
 }
