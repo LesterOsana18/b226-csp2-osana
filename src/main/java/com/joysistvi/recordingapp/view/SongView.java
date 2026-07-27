@@ -24,6 +24,10 @@ public class SongView {
     private static final String TABLE_BORDER =
                 "+------+------------------------------+----------+----------------+----------+";
 
+    // Table border used when displaying albums
+    private static final String ALBUM_TABLE_BORDER =
+                "+------+------------------------------+------------------------------+";
+
     // Constructor Injection
     public SongView(
             SongController songController,
@@ -36,7 +40,7 @@ public class SongView {
 
     }
 
-    // Display the Song Management dashboard
+    // Display the Song Management Dashboard
     public void run() {
 
         boolean running = true;
@@ -85,6 +89,9 @@ public class SongView {
 
                     // Update an existing song (CRUD - Update)
                     System.out.println("\n=== Update Song ===");
+
+                    displaySongs();
+
                     updateSong();
 
                     System.out.print("Press Enter to continue...");
@@ -107,6 +114,9 @@ public class SongView {
 
                     // Archive a song (CRUD - Archive)
                     System.out.println("\n=== Archive Song ===");
+
+                    displaySongs();
+
                     archiveSong();
 
                     System.out.print("Press Enter to continue...");
@@ -118,6 +128,9 @@ public class SongView {
 
                     // Restore a song (CRUD - Restore)
                     System.out.println("\n=== Restore Song ===");
+
+                    displayArchivedSongs();
+
                     restoreSong();
 
                     System.out.print("Press Enter to continue...");
@@ -166,37 +179,15 @@ public class SongView {
     private void displaySongs() {
 
         List<Song> songs = songController.listSongs();
+        displaySongTable(songs);
 
-        if (songs.isEmpty()) {
-            System.out.println("\nNo songs found.\n");
-            return;
-        }
+    }
 
-        System.out.println(TABLE_BORDER);
+    // Display all archived songs retrieved from the database
+    private void displayArchivedSongs() {
 
-        System.out.printf("| %-4s | %-28s | %-8s | %-14s | %-8s |%n",
-                "ID", "Title", "Length", "Genre", "Album");
-
-        System.out.println(TABLE_BORDER);
-
-        for (Song song : songs) {
-
-            System.out.printf("| %-4d | %-28s | %-8s | %-14s | %-8d |%n",
-                    song.getId(),
-                    song.getTitle(),
-                    song.getSongLength(),
-                    song.getGenre(),
-                    song.getAlbumId());
-
-        }
-
-        System.out.println(TABLE_BORDER);
-
-        System.out.printf("| %-63s | %-8d |%n",
-                "Total Songs",
-                songs.size());
-
-        System.out.println(TABLE_BORDER);
+        List<Song> songs = songController.listArchivedSongs();
+        displaySongTable(songs);
 
     }
 
@@ -393,6 +384,38 @@ public class SongView {
 
     }
 
+    // Display the given list of songs in a formatted table
+    private void displaySongTable(List<Song> songs) {
+
+        if (songs.isEmpty()) {
+            System.out.println("\nNo songs found.\n");
+            return;
+        }
+
+        System.out.println(TABLE_BORDER);
+
+        System.out.printf("| %-4s | %-28s | %-8s | %-14s | %-8s |%n",
+                "ID", "Title", "Length", "Genre", "Album");
+
+        System.out.println(TABLE_BORDER);
+
+        for (Song song : songs) {
+
+            System.out.printf("| %-4d | %-28s | %-8s | %-14s | %-8d |%n",
+                    song.getId(),
+                    song.getTitle(),
+                    song.getSongLength(),
+                    song.getGenre(),
+                    song.getAlbumId());
+
+        }
+
+        System.out.println(TABLE_BORDER);
+        System.out.println("Total songs: " + songs.size());
+        System.out.println(TABLE_BORDER);
+
+    }
+
     // Display all available albums for selection
     private void displayAlbums() {
 
@@ -403,19 +426,16 @@ public class SongView {
             return;
         }
 
-        String border =
-                "+------+------------------------------+------------------------------+";
-
         System.out.println("\nAvailable Albums");
 
-        System.out.println(border);
+        System.out.println(ALBUM_TABLE_BORDER);
 
         System.out.printf("| %-4s | %-28s | %-28s |%n",
                 "ID",
                 "Album",
                 "Artist");
 
-        System.out.println(border);
+        System.out.println(ALBUM_TABLE_BORDER);
 
         for (Album album : albums) {
 
@@ -426,7 +446,9 @@ public class SongView {
 
         }
 
-        System.out.println(border);
+        System.out.println(ALBUM_TABLE_BORDER);
+        System.out.println("Total albums: " + albums.size());
+        System.out.println(ALBUM_TABLE_BORDER);
 
     }
 }
