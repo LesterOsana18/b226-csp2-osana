@@ -202,9 +202,7 @@ public class SongView {
 
     // Update an existing song in the database
     private void updateSong() {
-        System.out.print("Song ID: ");
-        int id = input.nextInt();
-        input.nextLine();
+        int id = readSongId();
 
         String title = readSongTitle();
         String songLength = readSongLength();
@@ -222,9 +220,7 @@ public class SongView {
 
     // Delete a song from the database permanently
     private void deleteSong() {
-        System.out.print("Song ID: ");
-        int id = input.nextInt();
-        input.nextLine();
+        int id = readSongId();
 
         System.out.println("Are you sure you want to proceed with the deletion?");
         System.out.println("WARNING: This action cannot be undone and will permanently remove the song from the database.");
@@ -244,9 +240,7 @@ public class SongView {
 
     // Archive a song by marking it as inactive in the database
     private void archiveSong() {
-        System.out.print("Song ID: ");
-        int id = input.nextInt();
-        input.nextLine();
+        int id = readSongId();
 
         if (songController.archiveSong(id)) {
             System.out.println("\nSong archived successfully!\n");
@@ -257,15 +251,41 @@ public class SongView {
 
     // Restore a song by marking it as active in the database
     private void restoreSong() {
-        System.out.print("Song ID: ");
-        int id = input.nextInt();
-        input.nextLine();
+        int id = readSongId();
 
         if (songController.restoreSong(id)) {
             System.out.println("\nSong restored successfully!\n");
         } else {
             System.out.println("\nFailed to restore song.\n");
         }
+    }
+
+    // Read and validate the song ID
+    private int readSongId() {
+        int songId;
+
+        while (true) {
+            System.out.print("Song ID: ");
+
+            while (!input.hasNextInt()) {
+
+                System.out.println("\nError: Song ID must be a number.\n");
+                input.nextLine();
+
+                System.out.print("Song ID: ");
+
+            }
+
+            songId = input.nextInt();
+            input.nextLine(); // Consume newline
+
+            if (songId > 0) {
+                return songId;
+            }
+
+            System.out.println("\nError: Song ID must be greater than zero.\n");
+        }
+
     }
 
     // Read and validate the song title
