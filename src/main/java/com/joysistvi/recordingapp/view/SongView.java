@@ -48,11 +48,18 @@ public class SongView {
 
                 case 1:
 
+                    // Add a new song (CRUD - Create)
                     System.out.println("\n=== Add Song ===");
+                    addSong();
+                    
+                    System.out.print("\nPress Enter to continue...");
+                    input.nextLine();
+
                     break;
 
                 case 2:
 
+                    // View all songs (CRUD - Read)
                     System.out.println("\n=== View All Songs ===");
                     displaySongs();
 
@@ -63,21 +70,29 @@ public class SongView {
 
                 case 3:
 
+                    // Update an existing song (CRUD - Update)
+                    // TODO: Implement the update functionality
                     System.out.println("\n=== Update Song ===");
                     break;
 
                 case 4:
 
+                    // Delete a song (CRUD - Delete)
+                    // TODO: Implement the delete functionality
                     System.out.println("\n=== Delete Song ===");
                     break;
 
                 case 5:
 
+                    // Archive a song (CRUD - Archive)
+                    // TODO: Implement the archive functionality
                     System.out.println("\n=== Archive Song ===");
                     break;
 
                 case 6:
 
+                    // Restore a song (CRUD - Restore)
+                    // TODO: Implement the restore functionality
                     System.out.println("\n=== Restore Song ===");
                     break;
 
@@ -95,6 +110,33 @@ public class SongView {
 
         }
 
+    }
+
+    // Add a new song by prompting the user for details
+    public void addSong() {
+        // Prompt the user for song details
+        System.out.print("Title: ");
+        String title = input.nextLine();
+
+        System.out.print("Song Length (HH:MM:SS): ");
+        String songLength = input.nextLine();
+
+        System.out.print("Genre: ");
+        String genre = input.nextLine();
+
+        System.out.print("Album ID: ");
+        int albumId = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        // Create a new Song object with the provided details
+        Song song = new Song(title, songLength, genre, albumId);
+
+        // Call the controller to create the song and display the result
+        if (songController.createSong(song)) {
+            System.out.println("\n" + song.getTitle() + " has been added successfully!");
+        } else {
+            System.out.println("Failed to add song.");
+        }
     }
 
     // Display all active songs retrieved from the database
