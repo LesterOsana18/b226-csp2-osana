@@ -32,4 +32,7 @@ public interface ArtistRepository {
     // Permanently delete an artist from the database
     boolean deleteArtist(int id);
 
+    // Check if an artist exists by ID
+    boolean artistExists(int id);
+
 }

@@ -190,4 +190,33 @@ public class ArtistRepositoryImpl implements ArtistRepository {
 
         }
     }
+
+    // Check if an artist exists by ID
+    @Override
+    public boolean artistExists(int id) {
+
+        String query = "SELECT COUNT(*) FROM artists WHERE id = ?";
+
+        try (
+            Connection connection = dbConnection.connect();
+            PreparedStatement statement = connection.prepareStatement(query)
+        ) {
+
+            statement.setInt(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error checking artist ID: " + e.getMessage());
+        }
+
+        return false;
+
+    }
 }
