@@ -20,7 +20,7 @@ public class App {
 
         // ======================================================
         // Dependency Injection
-        // Instantiate and connect the Song module components
+        // Initialize modules and inject dependencies into controllers and views
         // ======================================================
 
         AlbumRepository albumRepository = new AlbumRepositoryImpl(dbConnection);
