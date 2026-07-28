@@ -38,6 +38,10 @@ public class App {
         SongRepository songRepository = new SongRepositoryImpl(dbConnection);
         SongService songService = new SongServiceImpl(songRepository);
         SongController songController = new SongController(songService);
+
+        UserRepository userRepository = new UserRepositoryImpl(dbConnection);
+        UserService userService = new UserServiceImpl(userRepository);
+        UserController userController = new UserController(userService);
         
         // Instantiate the views with their dependencies
         SongView songView =
@@ -51,6 +55,9 @@ public class App {
 
         PlaylistView playlistView =
                 new PlaylistView(playlistController, scanner);
+        
+        UserView userView =
+                new UserView(userController, scanner);
 
         int choice;
 
@@ -70,8 +77,7 @@ public class App {
 
                 case 4 -> playlistView.run();
 
-                case 5 ->
-                        System.out.println("User Management is not implemented yet.");
+                case 5 -> userView.run();
 
                 case 0 -> {
                         System.out.println("\nExiting the program...");
