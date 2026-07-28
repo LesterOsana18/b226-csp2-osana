@@ -2,23 +2,10 @@ package com.joysistvi.recordingapp;
 
 import com.joysistvi.recordingapp.config.DbConnection;
 
-import com.joysistvi.recordingapp.controller.AlbumController;
-import com.joysistvi.recordingapp.controller.SongController;
-
-import com.joysistvi.recordingapp.repository.AlbumRepository;
-import com.joysistvi.recordingapp.repository.AlbumRepositoryImpl;
-
-import com.joysistvi.recordingapp.repository.SongRepository;
-import com.joysistvi.recordingapp.repository.SongRepositoryImpl;
-
-import com.joysistvi.recordingapp.service.AlbumService;
-import com.joysistvi.recordingapp.service.AlbumServiceImpl;
-
-import com.joysistvi.recordingapp.service.SongService;
-import com.joysistvi.recordingapp.service.SongServiceImpl;
-
-import com.joysistvi.recordingapp.view.AlbumView;
-import com.joysistvi.recordingapp.view.SongView;
+import com.joysistvi.recordingapp.controller.*;
+import com.joysistvi.recordingapp.repository.*;
+import com.joysistvi.recordingapp.service.*;
+import com.joysistvi.recordingapp.view.*;
 
 import java.util.Scanner;
 
@@ -40,6 +27,10 @@ public class App {
         AlbumService albumService = new AlbumServiceImpl(albumRepository);
         AlbumController albumController = new AlbumController(albumService);
 
+        ArtistRepository artistRepository = new ArtistRepositoryImpl(dbConnection);
+        ArtistService artistService = new ArtistServiceImpl(artistRepository);
+        ArtistController artistController = new ArtistController(artistService);
+
         SongRepository songRepository = new SongRepositoryImpl(dbConnection);
         SongService songService = new SongServiceImpl(songRepository);
         SongController songController = new SongController(songService);
@@ -51,10 +42,8 @@ public class App {
         AlbumView albumView =
                 new AlbumView(albumController, scanner);
 
-        // ======================================================
-        // Future Modules
-        // Album, Artist, Playlist, and User will be wired here
-        // ======================================================
+        ArtistView artistView =
+                new ArtistView(artistController, scanner);
 
         int choice;
 
@@ -70,8 +59,7 @@ public class App {
 
                 case 2 -> albumView.run();
 
-                case 3 ->
-                        System.out.println("Artist Management is not implemented yet.");
+                case 3 -> artistView.run();
 
                 case 4 ->
                         System.out.println("Playlist Management is not implemented yet.");
