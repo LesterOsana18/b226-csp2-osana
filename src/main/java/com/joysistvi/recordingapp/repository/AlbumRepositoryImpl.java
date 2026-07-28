@@ -141,6 +141,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
             int rowsAffected = preparedStatement.executeUpdate();
 
             return rowsAffected > 0;
+
         } catch (SQLException e) {
 
             System.out.println("Error creating album: " + e.getMessage());
