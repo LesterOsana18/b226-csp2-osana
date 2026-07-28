@@ -31,6 +31,10 @@ public class App {
         ArtistService artistService = new ArtistServiceImpl(artistRepository);
         ArtistController artistController = new ArtistController(artistService);
 
+        PlaylistRepository playlistRepository = new PlaylistRepositoryImpl(dbConnection);
+        PlaylistService playlistService = new PlaylistServiceImpl(playlistRepository);
+        PlaylistController playlistController = new PlaylistController(playlistService);
+
         SongRepository songRepository = new SongRepositoryImpl(dbConnection);
         SongService songService = new SongServiceImpl(songRepository);
         SongController songController = new SongController(songService);
@@ -44,6 +48,9 @@ public class App {
 
         ArtistView artistView =
                 new ArtistView(artistController, scanner);
+
+        PlaylistView playlistView =
+                new PlaylistView(playlistController, scanner);
 
         int choice;
 
@@ -61,8 +68,7 @@ public class App {
 
                 case 3 -> artistView.run();
 
-                case 4 ->
-                        System.out.println("Playlist Management is not implemented yet.");
+                case 4 -> playlistView.run();
 
                 case 5 ->
                         System.out.println("User Management is not implemented yet.");
