@@ -8,25 +8,22 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
-	private String createdAt;
 	
 	// Default constructor
 	public User() {
 	}
 	
     // Constructor for existing records (includes ID)
-	public User(int id, String username, String password, String createdAt) {
+	public User(int id, String username, String password) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.createdAt = createdAt;
 	}
 	
     // Constructor for creating a new user
-	public User(String username, String password, String createdAt) {
+	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.createdAt = createdAt;
 	}
 	
 	// Getter (Accessor) and Setter (Mutator) Methods
@@ -55,11 +52,4 @@ public class User {
 		this.password = password;
 	}
 
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
 }
