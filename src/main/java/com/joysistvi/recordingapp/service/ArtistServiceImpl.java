@@ -5,7 +5,6 @@ import java.util.List;
 import com.joysistvi.recordingapp.model.Artist;
 import com.joysistvi.recordingapp.repository.ArtistRepository;
 
-
 // Service Implementation
 // Handles the business logic related to Artist objects
 public class ArtistServiceImpl implements ArtistService {
