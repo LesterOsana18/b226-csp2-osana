@@ -74,9 +74,9 @@ public class App {
                         System.out.println("User Management is not implemented yet.");
 
                 case 0 -> {
-                        System.out.println("Exiting the program...");
+                        System.out.println("\nExiting the program...");
                         System.out.println("Thank you for using the Recording Studio App!");
-                        System.out.println("© 2026 Lester Osana. All rights reserved.");
+                        System.out.println("Copyright (C) 2026 Lester Osana. All rights reserved.\n");
                 }
 
                 default ->
