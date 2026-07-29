@@ -104,4 +104,21 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    // Authenticate a user by username and password
+    @Override
+    public User login(String username, String password) {
+
+        if (username == null || username.trim().isEmpty()) {
+            System.out.println("Username cannot be empty.");
+            return null;
+        }
+
+        if (password == null || password.trim().isEmpty()) {
+            System.out.println("Password cannot be empty.");
+            return null;
+        }
+
+        return userRepository.login(username.trim(), password);
+
+    }
 }

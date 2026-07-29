@@ -34,4 +34,6 @@ public interface UserRepository {
     // Check if a user exists by ID
     boolean userExists(int id);
 
+    // Authenticate a user by username and password
+    User login(String username, String password);
 }

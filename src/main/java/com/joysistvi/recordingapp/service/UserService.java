@@ -23,4 +23,6 @@ public interface UserService {
     // Delete a user permanently
     boolean deleteUser(int id);
 
+    // Authenticate a user by username and password
+    User login(String username, String password);
 }

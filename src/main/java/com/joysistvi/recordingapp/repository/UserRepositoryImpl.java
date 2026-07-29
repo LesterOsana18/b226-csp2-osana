@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
                 users.add(new User(
                         resultSet.getInt("id"),
                         resultSet.getString("username"),
-                        resultSet.getString("user_password")
+                        resultSet.getString("password")
                 ));
 
             }
@@ -82,7 +82,7 @@ public class UserRepositoryImpl implements UserRepository {
                 users.add(new User(
                         resultSet.getInt("id"),
                         resultSet.getString("username"),
-                        resultSet.getString("user_password")
+                        resultSet.getString("password")
                 ));
 
             }
@@ -105,7 +105,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean createUser(User user) {
 
-        String query = "INSERT INTO users (username, user_password) VALUES (?, ?)";
+        String query = "INSERT INTO users (username, password) VALUES (?, ?)";
 
         try (
                 Connection connection = dbConnection.connect();
@@ -135,7 +135,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean updateUser(User user) {
 
-        String query = "UPDATE users SET username = ?, user_password = ? WHERE id = ?";
+        String query = "UPDATE users SET username = ?, password = ? WHERE id = ?";
 
         try (
                 Connection connection = dbConnection.connect();
@@ -212,5 +212,45 @@ public class UserRepositoryImpl implements UserRepository {
 
         return false;
 
+    }
+
+    // Authenticate a user by username and password
+    @Override
+    public User login(String username, String password) {
+
+        String query =
+            "SELECT id, username, password "
+            + "FROM users "
+            + "WHERE username = ? AND password = ?";
+
+        try (
+                Connection connection = dbConnection.connect();
+                PreparedStatement statement = connection.prepareStatement(query)
+        ) {
+
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet.next()) {
+
+                    return new User(
+                            resultSet.getInt("id"),
+                            resultSet.getString("username"),
+                            resultSet.getString("password")
+                    );
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Error during login: " + e.getMessage());
+
+        }
+
+        return null;
     }
 }

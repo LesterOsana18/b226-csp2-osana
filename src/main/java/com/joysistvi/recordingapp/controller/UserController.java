@@ -42,4 +42,8 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
+    // Authenticate a user by username and password
+    public User login(String username, String password) {
+        return userService.login(username, password);
+    }
 }
