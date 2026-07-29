@@ -59,6 +59,16 @@ public class App {
         UserView userView =
                 new UserView(userController, scanner);
 
+        LoginView loginView =
+                new LoginView(userController, scanner);
+
+        if (!loginView.run()) {
+            System.out.println("\nExiting the program...");
+            System.out.println("Copyright (C) 2026 Lester Osana. All rights reserved.\n");
+            scanner.close();
+            return;
+        }
+
         int choice;
 
         do {
@@ -80,13 +90,13 @@ public class App {
                 case 5 -> userView.run();
 
                 case 0 -> {
-                        System.out.println("\nExiting the program...");
-                        System.out.println("Thank you for using the Recording Studio App!");
-                        System.out.println("Copyright (C) 2026 Lester Osana. All rights reserved.\n");
+                    System.out.println("\nExiting the program...");
+                    System.out.println("Thank you for using the Recording Studio App!");
+                    System.out.println("Copyright (C) 2026 Lester Osana. All rights reserved.\n");
                 }
 
                 default ->
-                        System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.");
 
             }
 
